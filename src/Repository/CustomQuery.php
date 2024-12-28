@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use Doctrine\ORM\Query;
+use App\Repository\CustomRepository;
 
 class CustomQuery extends Query
 {
