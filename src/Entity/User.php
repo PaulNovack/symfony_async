@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-#[ORM\Entity(repositoryClass: "App\Repository\CustomRepository")]
+#[ORM\Entity(repositoryClass: App\Repository\CustomRepository::class)]
 #[ORM\Table(name: "users")]
 class User implements PasswordAuthenticatedUserInterface
 {
