@@ -6,5 +6,9 @@ use App\Repository\CustomRepository;
 
 class ProductRepository extends CustomRepository
 {
-    // Add custom methods for Product entity if needed
+    public function aFindAll()
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        $this->execAsynch($queryBuilder);
+    }
 }
