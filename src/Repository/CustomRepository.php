@@ -16,9 +16,8 @@ class CustomRepository extends EntityRepository
     private $context;
     private $socket;
 
-    public function __construct($em, $classMetadata)
+    public function __construct()
     {
-        parent::__construct($em, $classMetadata);
         $this->context = new ZMQContext();
         $this->clientId = uniqid("client_");
         $this->socket = $this->context->getSocket(ZMQ::SOCKET_REQ);
@@ -35,10 +34,10 @@ class CustomRepository extends EntityRepository
     {
         $this->aSql = $queryBuilder->getQuery()->getSQL();
     }
-    public function aSyncGet()
+    public function aSyncGet($query)
     {
         $this->queryId = uniqid("query_");
-        $payload = msgpack_pack(['id' => $this->queryId, 'query' => $this->aSql]);
+        $payload = msgpack_pack(['id' => $this->queryId, 'query' => $query]);
         $this->socket->sendmulti(['', $payload]);
     }
 
@@ -60,7 +59,6 @@ class CustomRepository extends EntityRepository
     public function findAsync()
     {
         // Custom logic for asynchronous fetching
-        $this->aSyncGet();
-        return $this->aFetch();
+        return $this->findAll();
     }
 }
