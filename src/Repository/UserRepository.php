@@ -8,10 +8,14 @@ class UserRepository extends CustomRepository
 {
     public function searchByName(string $searchTerm)
     {
-        return $this->createQueryBuilder('u')
+        $queryBuilder = $this->createQueryBuilder('u')
             ->where('u.firstName LIKE :searchTerm OR u.lastName LIKE :searchTerm')
             ->setParameter('searchTerm', '%' . $searchTerm . '%')
             ->getQuery()
-            ->getResult();
+            ->getQuery();
+
+        $this->storeSqlForQuery($queryBuilder);
+
+        return null; // Or handle as needed
     }
 }
