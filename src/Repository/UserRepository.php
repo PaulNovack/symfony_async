@@ -13,6 +13,7 @@ class UserRepository extends CustomRepository
             ->setParameter('searchTerm', '%' . $searchTerm . '%');
 
         $this->aSql = $queryBuilder->getQuery()->getSQL();
+        die($this->aSql);
 
     }
 }
