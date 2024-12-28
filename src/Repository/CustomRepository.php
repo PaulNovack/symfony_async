@@ -18,6 +18,11 @@ class CustomRepository extends EntityRepository
     {
         $this->aSql = $queryBuilder->getQuery()->getSQL();
     }
+    public function fetchResults($queryBuilder)
+    {
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     public function findAsync()
     {
         // Custom logic for asynchronous fetching
