@@ -2,9 +2,9 @@
 
 namespace App\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use App\Repository\CustomRepository;
 
-class UserRepository extends EntityRepository
+class UserRepository extends CustomRepository
 {
     public function searchByName(string $searchTerm)
     {
