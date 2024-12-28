@@ -55,9 +55,6 @@ class CustomRepository extends EntityRepository
 
         return null;
     }
-    {
-        return $queryBuilder->getQuery()->getResult();
-    }
 
     public function findAsync()
     {
