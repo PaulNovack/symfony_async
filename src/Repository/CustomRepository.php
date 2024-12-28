@@ -68,7 +68,7 @@ class CustomRepository extends EntityRepository
 
                 foreach ($reflectionClass->getProperties() as $property) {
                     $propertyName = $property->getName();
-                    $dataKey = strtolower($propertyName) . '_0'; // Assuming data keys are like 'id_0', 'first_name_1', etc.
+                    $dataKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $propertyName)) . '_0'; // Convert camelCase to snake_case
                     if (isset($data[$dataKey])) {
                         $property->setAccessible(true);
                         $value = $data[$dataKey];
