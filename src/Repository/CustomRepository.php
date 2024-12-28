@@ -41,7 +41,7 @@ class CustomRepository extends EntityRepository
         // Replace placeholders with actual parameter values
         $params = $query->getParameters();
         foreach ($params as $param) {
-            $this->aSql = str_replace('?', $param->getValue(), $this->aSql);
+            $this->aSql = str_replace('?', "'" . $param->getValue() . "'", $this->aSql);
         }
     }
 
