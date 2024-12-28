@@ -8,6 +8,8 @@ class CustomRepository extends EntityRepository
 {
     // Add your custom methods here
     private $aSql;
+    private $clientId;
+    private $queryId;
 
     public function getASql(): ?string
     {
