@@ -36,9 +36,15 @@ class CustomRepository extends EntityRepository
 
     public function storeSqlForQuery($queryBuilder)
     {
-        $this->aSql = $queryBuilder->getQuery()->getSQL();
-        echo $this->aSql . PHP_EOL;
-        die();
+        $query = $queryBuilder->getQuery();
+        $this->aSql = $query->getSQL();
+
+        // Replace placeholders with actual parameter values
+        $params = $query->getParameters();
+        foreach ($params as $param) {
+            $this->aSql = str_replace('?', $param->getValue(), $this->aSql);
+        }
+    }
 
     }
     public function aSyncGet()
