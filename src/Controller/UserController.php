@@ -41,4 +41,3 @@ class UserController extends AbstractController
         $reply = $socket->recv();
         return json_decode($reply, true);
     }
-}
