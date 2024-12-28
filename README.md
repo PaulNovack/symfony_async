@@ -4,3 +4,5 @@ An example of how to use https://github.com/PaulNovack/CppZeroMQAsynchSQLServer 
 
 To work better with CppZeroMQAsynchSQLServer the server should return error responses better.
 
+![Product List](listproducts.png)
+
