@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
     {
         $this->productFixtures->load($manager);
         $this->userFixtures->load($manager);
-    {
+
         // $product = new Product();
         // $manager->persist($product);
 
