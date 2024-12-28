@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/listproducts", name="list_products")
+     * @Route("/listproducts", name="list_products", methods={"GET"})
      */
     public function listProducts(ManagerRegistry $doctrine): Response
     {
