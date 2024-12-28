@@ -35,6 +35,7 @@ class ProductController extends AbstractController
         $products = $repository->aSyncFetch();
         $totalProducts = $totalProducts ?? count($products);
         return $this->render('product/list.html.twig', [
+            'totalProducts' => $totalProducts,
             'products' => $products,
             'page' => $page,
             'totalPages' => ceil($totalProducts / $limit)
