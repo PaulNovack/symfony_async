@@ -68,15 +68,17 @@ class CustomRepository extends EntityRepository
 
                 foreach ($reflectionClass->getProperties() as $property) {
                     $propertyName = $property->getName();
-                    $dataKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $propertyName)); // Remove suffix to match data keys
-                    if (isset($data[$dataKey])) {
-                        $property->setAccessible(true);
-                        $value = $data[$dataKey];
-                        // Handle special cases like JSON fields
-                        if ($propertyName === 'roles') {
-                            $value = json_decode($value, true);
+                    $baseDataKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $propertyName));
+                    foreach ($data as $key => $value) {
+                        if (strpos($key, $baseDataKey) === 0) {
+                            $property->setAccessible(true);
+                            // Handle special cases like JSON fields
+                            if ($propertyName === 'roles') {
+                                $value = json_decode($value, true);
+                            }
+                            $property->setValue($entity, $value);
+                            break;
                         }
-                        $property->setValue($entity, $value);
                     }
                 }
 
