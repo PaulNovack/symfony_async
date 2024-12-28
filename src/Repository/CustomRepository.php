@@ -12,7 +12,7 @@ use ZMQContext;
 class CustomRepository extends EntityRepository
 {
     // Add your custom methods here
-    private $aSql;
+    public $aSql;
     private $clientId;
     private $queryId;
     private $context;
@@ -23,9 +23,10 @@ class CustomRepository extends EntityRepository
         parent::__construct($em, $class);
         $this->context = new ZMQContext();
         $this->clientId = uniqid("client_");
-        $this->socket = $this->context->getSocket(ZMQ::SOCKET_REQ);
+        $this->socket = $this->context->getSocket(ZMQ::SOCKET_DEALER);
         $this->socket->setSockOpt(ZMQ::SOCKOPT_IDENTITY, $this->clientId);
-        $this->socket->connect("tcp://cpp_server:5555");
+        $this->socket->connect("tcp://127.0.0.1:5555");
+
     }
 
     public function getASql(): ?string
@@ -36,26 +37,29 @@ class CustomRepository extends EntityRepository
     public function storeSqlForQuery($queryBuilder)
     {
         $this->aSql = $queryBuilder->getQuery()->getSQL();
+        echo $this->aSql . PHP_EOL;
+        die();
+
     }
-    public function aSyncGet($query)
+    public function aSyncGet()
     {
         $this->queryId = uniqid("query_");
-        $payload = msgpack_pack(['id' => $this->queryId, 'query' => $query]);
+        $payload = msgpack_pack(['id' => $this->queryId, 'query' => $this->aSql]);
         $this->socket->sendmulti(['', $payload]);
     }
 
-    public function aFetch()
+    public function aSyncFetch()
     {
         $response = $this->socket->recvMulti();
         $payload = msgpack_unpack($response[0]);
-
+        var_dump($payload);
+        die();
         if (isset($payload['id']) && $payload['id'] === $this->queryId) {
             $receivedData = $payload['data'];
             echo "<br><br>";
             print_r($receivedData);
             return $receivedData;
         }
-
         return null;
     }
 
