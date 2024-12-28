@@ -18,7 +18,8 @@ class UserController extends AbstractController
      */
     public function listUsers(ManagerRegistry $doctrine): Response
     {
-        $users = /asl;
+        $repository = $doctrine->getRepository(User::class, 'App\Repository\CustomRepository');
+        $users = $repository->findAsync(1); // Example usage of the custom method
 
         return $this->render('user/list.html.twig', [
             'users' => $users,
