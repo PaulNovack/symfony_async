@@ -38,7 +38,11 @@
             <a href="{{ path('list_products', {page: page - 1, search: app.request.query.get('search', '')}) }}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg mr-2">Previous</a>
         {% endif %}
         <span class="px-4 py-2">{{ page }}</span>
-        {% if products|length == 25 %}
+        {% if page > 1 %}
+            <a href="{{ path('list_products', {page: page - 1, search: app.request.query.get('search', '')}) }}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg mr-2">Previous</a>
+        {% endif %}
+        <span class="px-4 py-2">{{ page }}</span>
+        {% if page < totalPages %}
             <a href="{{ path('list_products', {page: page + 1, search: app.request.query.get('search', '')}) }}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg ml-2">Next</a>
         {% endif %}
     </div>
