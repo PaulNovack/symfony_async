@@ -41,7 +41,20 @@ class CustomRepository extends EntityRepository
         $this->socket->sendmulti(['', $payload]);
     }
 
-    public function fetchResults($queryBuilder)
+    public function aFetch()
+    {
+        $response = $this->socket->recvMulti();
+        $payload = msgpack_unpack($response[0]);
+
+        if (isset($payload['id']) && $payload['id'] === $this->queryId) {
+            $receivedData = $payload['data'];
+            echo "<br><br>";
+            print_r($receivedData);
+            return $receivedData;
+        }
+
+        return null;
+    }
     {
         return $queryBuilder->getQuery()->getResult();
     }
