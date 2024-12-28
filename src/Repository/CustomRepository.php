@@ -60,9 +60,10 @@ class CustomRepository extends EntityRepository
 
         if (isset($payload['id']) && $payload['id'] === $this->queryId) {
             $receivedData = $payload['data'];
+            $entityName = $this->getClassName();
 
             foreach ($receivedData as $data) {
-                $entity = new $this->_entityName();
+                $entity = new $entityName();
                 $entity->setId((int)$data['id_0']);
                 $entity->setFirstName($data['first_name_1']);
                 $entity->setLastName($data['last_name_2']);
