@@ -56,11 +56,25 @@ class CustomRepository extends EntityRepository
     {
         $response = $this->socket->recvMulti();
         $payload = msgpack_unpack($response[0]);
+        $entities = [];
+
         if (isset($payload['id']) && $payload['id'] === $this->queryId) {
             $receivedData = $payload['data'];
-            return $receivedData;
+
+            foreach ($receivedData as $data) {
+                $entity = new $this->_entityName();
+                $entity->setId((int)$data['id_0']);
+                $entity->setFirstName($data['first_name_1']);
+                $entity->setLastName($data['last_name_2']);
+                $entity->setEmail($data['email_3']);
+                $entity->setPassword($data['password_4']);
+                $entity->setRoles(json_decode($data['roles_5'], true));
+
+                $entities[] = $entity;
+            }
         }
-        return [];
+
+        return $entities;
     }
 
     public function findAsync()
