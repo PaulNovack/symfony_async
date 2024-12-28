@@ -21,21 +21,15 @@ class UserController extends AbstractController
         $repository = $doctrine->getRepository(User::class);
 
         $searchTerm = $request->query->get('search', '');
-        $page = max(1, $request->query->getInt('page', 1));
-        $limit = 25;
-        $offset = ($page - 1) * $limit;
-
         if ($searchTerm) {
             $repository->aSearchByName($searchTerm);
+            $users = $repository->aSyncFetch();
+        } else {
+            $repository->aFindAll();
+            $users = $repository->aSyncFetch();
         }
-        $totalUsers = count($repository->aSyncFetch());
-        $repository->aFindAll($limit, $offset);
-        $users = $repository->aSyncFetch();
-
         return $this->render('user/list.html.twig', [
-            'users' => $users,
-            'page' => $page,
-            'totalPages' => ceil($totalUsers / $limit)
+            'users' => $users
         ]);
     }
 }
