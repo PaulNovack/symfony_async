@@ -21,10 +21,8 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create();
 
+        $batchSize = 50;
         for ($i = 0; $i < 300; $i++) {
-            if ($i % 50 === 0) {
-                echo "Creating user $i\n";
-            }
             $user = new User();
             $user->setFirstName($faker->firstName);
             $user->setLastName($faker->lastName);
@@ -33,12 +31,16 @@ class UserFixtures extends Fixture
             $user->setRoles(['ROLE_USER']);
 
             $manager->persist($user);
-            if ($i % 50 === 0) {
+
+            if (($i + 1) % $batchSize === 0) {
                 $manager->flush();
-                echo "Flushed users up to $i\n";
+                $manager->clear(); // Detaches all objects from Doctrine for memory management
+                echo "Flushed users up to " . ($i + 1) . "\n";
             }
         }
 
-        $manager->flush();
+        $manager->flush(); // Flush remaining users
+        $manager->clear();
+        echo "All users flushed\n";
     }
 }
