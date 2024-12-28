@@ -24,11 +24,7 @@ class UserController extends AbstractController
         $sql = null;
         if ($searchTerm) {
             $users = $repository->searchByName($searchTerm);
-            die();
-            $repository->aSyncGet();
-            $data = $repository->aSyncFetch();
-            var_dump($data);
-
+            $sql = $repository->getASql();
 
         } else {
             $users = $repository->findAll();
