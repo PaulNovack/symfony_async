@@ -24,9 +24,9 @@ class UserFixtures extends Fixture
         $batchSize = 50;
         for ($i = 0; $i < 300; $i++) {
             $user = new User();
-            $user->setFirstName($faker->firstName);
-            $user->setLastName($faker->lastName);
-            $user->setEmail($faker->unique()->safeEmail);
+            $user->setFirstName($faker->firstName());
+            $user->setLastName($faker->lastName());
+            $user->setEmail($faker->unique()->safeEmail());
             $user->setPassword($this->passwordHasher->hashPassword($user, 'password'));
             $user->setRoles(['ROLE_USER']);
 
