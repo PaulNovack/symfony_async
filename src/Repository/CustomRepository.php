@@ -16,8 +16,9 @@ class CustomRepository extends EntityRepository
     private $context;
     private $socket;
 
-    public function __construct()
+    public function __construct($em, $classMetadata)
     {
+        parent::__construct($em, $classMetadata);
         $this->context = new ZMQContext();
         $this->clientId = uniqid("client_");
         $this->socket = $this->context->getSocket(ZMQ::SOCKET_REQ);
