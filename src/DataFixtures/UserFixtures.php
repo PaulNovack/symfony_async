@@ -15,8 +15,6 @@ class UserFixtures extends Fixture
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
-        $manager->flush();
-        echo "All users flushed\n";
     }
 
     public function load(ObjectManager $manager): void
