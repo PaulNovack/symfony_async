@@ -26,12 +26,9 @@ class ProductController extends AbstractController
         $offset = ($page - 1) * $limit;
         if ($searchTerm) {
             $repository->aSearchByName($searchTerm);
-            $repository->setMaxResults($limit)->setFirstResult($offset);
-            $products = $repository->aSyncFetch();
-        } else {
-            $repository->aFindAll($limit, $offset);
-            $products = $repository->aSyncFetch();
         }
+        $repository->setMaxResults($limit)->setFirstResult($offset);
+        $products = $repository->aSyncFetch();
 
         return $this->render('product/list.html.twig', [
             'products' => $products,
