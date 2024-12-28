@@ -24,4 +24,4 @@ class ProductRepository extends CustomRepository
             $queryBuilder->setFirstResult($offset);
         }
         $this->execAsynch($queryBuilder);
-}
+    }
