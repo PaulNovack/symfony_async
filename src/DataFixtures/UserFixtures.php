@@ -15,6 +15,8 @@ class UserFixtures extends Fixture
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
+        $manager->flush();
+        echo "All users flushed\n";
     }
 
     public function load(ObjectManager $manager): void
@@ -33,6 +35,10 @@ class UserFixtures extends Fixture
             $user->setRoles(['ROLE_USER']);
 
             $manager->persist($user);
+            if ($i % 50 === 0) {
+                $manager->flush();
+                echo "Flushed users up to $i\n";
+            }
         }
 
         $manager->flush();
