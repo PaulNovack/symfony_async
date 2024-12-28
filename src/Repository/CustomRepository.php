@@ -64,7 +64,10 @@ class CustomRepository extends EntityRepository
 
             foreach ($receivedData as $data) {
                 $entity = new $entityName();
-                $entity->setId((int)$data['id_0']);
+                $reflectionClass = new \ReflectionClass($entity);
+                $idProperty = $reflectionClass->getProperty('id');
+                $idProperty->setAccessible(true);
+                $idProperty->setValue($entity, (int)$data['id_0']);
                 $entity->setFirstName($data['first_name_1']);
                 $entity->setLastName($data['last_name_2']);
                 $entity->setEmail($data['email_3']);
