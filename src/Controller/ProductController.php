@@ -29,7 +29,7 @@ class ProductController extends AbstractController
             $repository->setMaxResults($limit)->setFirstResult($offset);
             $products = $repository->aSyncFetch();
         } else {
-            $repository->aFindAll();
+            $repository->aFindAll($limit, $offset);
             $products = $repository->aSyncFetch();
         }
 
