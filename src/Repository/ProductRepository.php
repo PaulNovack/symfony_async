@@ -24,9 +24,4 @@ class ProductRepository extends CustomRepository
             $queryBuilder->setFirstResult($offset);
         }
         $this->execAsynch($queryBuilder);
-    }
-    {
-        $queryBuilder = $this->createQueryBuilder('p');
-        $this->execAsynch($queryBuilder);
-    }
 }
