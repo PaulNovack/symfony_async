@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use ZMQContext;
+use ZMQ;
+use ZMQSocket;
 
 class CustomRepository extends EntityRepository
 {
@@ -12,10 +14,15 @@ class CustomRepository extends EntityRepository
     private $clientId;
     private $queryId;
     private $context;
+    private $socket;
 
     public function __construct()
     {
         $this->context = new ZMQContext();
+        $this->clientId = uniqid("client_");
+        $this->socket = $this->context->getSocket(ZMQ::SOCKET_REQ);
+        $this->socket->setSockOpt(ZMQ::SOCKOPT_IDENTITY, $this->clientId);
+        $this->socket->connect("tcp://cpp_server:5555");
     }
 
     public function getASql(): ?string
