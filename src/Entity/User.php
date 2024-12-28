@@ -8,11 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: "users")]
 class User
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
     private $id;
 
     /**
