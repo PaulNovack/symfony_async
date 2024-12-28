@@ -3,31 +3,31 @@
 {% block title %}Product List{% endblock %}
 
 {% block body %}
-    <h1>Product List</h1>
+    <h1 class="text-2xl font-bold mb-4">Product List</h1>
 
-    <form method="get" action="{{ path('list_products') }}">
-        <input type="text" name="search" placeholder="Search by name" value="{{ app.request.query.get('search', '') }}">
-        <button type="submit">Search</button>
+    <form method="get" action="{{ path('list_products') }}" class="mb-4">
+        <input type="text" name="search" placeholder="Search by name" value="{{ app.request.query.get('search', '') }}" class="border rounded p-2">
+        <button type="submit" class="bg-blue-500 text-white rounded p-2">Search</button>
     </form>
 
-    <table>
+    <table class="min-w-full bg-white">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Quantity</th>
+                <th class="py-2">ID</th>
+                <th class="py-2">Name</th>
+                <th class="py-2">Description</th>
+                <th class="py-2">Price</th>
+                <th class="py-2">Quantity</th>
             </tr>
         </thead>
         <tbody>
             {% for product in products %}
-                <tr>
-                    <td>{{ product.id }}</td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.description }}</td>
-                    <td>{{ product.price }}</td>
-                    <td>{{ product.quantity }}</td>
+                <tr class="border-t">
+                    <td class="py-2">{{ product.id }}</td>
+                    <td class="py-2">{{ product.name }}</td>
+                    <td class="py-2">{{ product.description }}</td>
+                    <td class="py-2">{{ product.price }}</td>
+                    <td class="py-2">{{ product.quantity }}</td>
                 </tr>
             {% endfor %}
         </tbody>
