@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use ZMQContext;
 
 class CustomRepository extends EntityRepository
 {
@@ -10,6 +11,12 @@ class CustomRepository extends EntityRepository
     private $aSql;
     private $clientId;
     private $queryId;
+    private $context;
+
+    public function __construct()
+    {
+        $this->context = new ZMQContext();
+    }
 
     public function getASql(): ?string
     {
