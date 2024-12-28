@@ -13,13 +13,13 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="bg-gray-800 p-4">
-            <div class="container mx-auto flex justify-between items-center">
-                <div class="text-white text-lg font-bold">MyApp</div>
-                <div class="space-x-4">
-                    <a href="/" class="text-gray-300 hover:text-white">Home</a>
-                    <a href="{{ path('list_users') }}" class="text-gray-300 hover:text-white">Users</a>
-                    <a href="{{ path('list_products') }}" class="text-gray-300 hover:text-white">Products</a>
+        <nav class="bg-white shadow-md">
+            <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+                <div class="text-gray-800 text-xl font-semibold">MyApp</div>
+                <div class="space-x-6">
+                    <a href="/" class="text-gray-600 hover:text-blue-500">Home</a>
+                    <a href="{{ path('list_users') }}" class="text-gray-600 hover:text-blue-500">Users</a>
+                    <a href="{{ path('list_products') }}" class="text-gray-600 hover:text-blue-500">Products</a>
                 </div>
             </div>
         </nav>
