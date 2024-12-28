@@ -34,10 +34,10 @@ class CustomRepository extends EntityRepository
     {
         $this->aSql = $queryBuilder->getQuery()->getSQL();
     }
-    public function aSyncGet($query)
+    public function aSyncGet()
     {
         $this->queryId = uniqid("query_");
-        $payload = msgpack_pack(['id' => $this->queryId, 'query' => $query]);
+        $payload = msgpack_pack(['id' => $this->queryId, 'query' => $this->aSql]);
         $this->socket->sendmulti(['', $payload]);
     }
 
