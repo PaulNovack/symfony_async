@@ -26,7 +26,7 @@ class CustomRepository extends EntityRepository
         $this->socket = $this->context->getSocket(ZMQ::SOCKET_DEALER);
         $this->socket->setSockOpt(ZMQ::SOCKOPT_IDENTITY, $this->clientId);
         $this->socket->connect("tcp://127.0.0.1:5555");
-
+    }
 
     public function getASql(): ?string
     {
