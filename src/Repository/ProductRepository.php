@@ -13,6 +13,7 @@ class ProductRepository extends CustomRepository
             ->setParameter('searchTerm', '%' . $searchTerm . '%');
         $this->execAsynch($queryBuilder);
     }
+}
     public function aFindAll(int $limit = null, int $offset = null)
     {
         $queryBuilder = $this->createQueryBuilder('p');
