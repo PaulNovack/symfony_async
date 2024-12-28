@@ -21,7 +21,6 @@ class ProductController extends AbstractController
 
         $repository->aFindAll();
         $products = $repository->aSyncFetch();
-        $products = $repository->aSyncFetch();
 
         return $this->render('product/list.html.twig', [
             'products' => $products
