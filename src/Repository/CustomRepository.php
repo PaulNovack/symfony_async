@@ -60,6 +60,7 @@ class CustomRepository extends EntityRepository
     public function findAsync()
     {
         // Custom logic for asynchronous fetching
-        return $this->findAll();
+        $this->aSyncGet();
+        return $this->aFetch();
     }
 }
