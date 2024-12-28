@@ -14,6 +14,6 @@ class UserRepository extends CustomRepository
 
         $this->storeSqlForQuery($queryBuilder);
 
-        return null; // Or handle as needed
+        return $queryBuilder->getQuery()->getResult();
     }
 }
