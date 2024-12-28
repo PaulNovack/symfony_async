@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use ZMQ;
 use ZMQSocket;
+use ZMQContext;
 
 class CustomRepository extends EntityRepository
 {
