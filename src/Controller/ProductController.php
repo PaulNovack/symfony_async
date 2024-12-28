@@ -14,13 +14,19 @@ class ProductController extends AbstractController
     /**
      * @Route("/listproducts", name="list_products", methods={"GET"})
      */
-    public function listProducts(ManagerRegistry $doctrine): Response
+    public function listProducts(Request $request, ManagerRegistry $doctrine): Response
     {
         /** @var CustomRepository $repository */
         $repository = $doctrine->getRepository(Product::class);
 
-        $repository->aFindAll();
-        $products = $repository->aSyncFetch();
+        $searchTerm = $request->query->get('search', '');
+        if ($searchTerm) {
+            $repository->aSearchByName($searchTerm);
+            $products = $repository->aSyncFetch();
+        } else {
+            $repository->aFindAll();
+            $products = $repository->aSyncFetch();
+        }
 
         return $this->render('product/list.html.twig', [
             'products' => $products
