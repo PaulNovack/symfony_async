@@ -21,8 +21,12 @@ class ProductController extends AbstractController
         $repository = $doctrine->getRepository(Product::class);
 
         $searchTerm = $request->query->get('search', '');
+        $page = max(1, $request->query->getInt('page', 1));
+        $limit = 25;
+        $offset = ($page - 1) * $limit;
         if ($searchTerm) {
             $repository->aSearchByName($searchTerm);
+            $repository->setMaxResults($limit)->setFirstResult($offset);
             $products = $repository->aSyncFetch();
         } else {
             $repository->aFindAll();
