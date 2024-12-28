@@ -14,7 +14,7 @@ class ProductFixtures extends Fixture
         $faker = Factory::create();
 
         $batchSize = 50;
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 300; $i++) {
             $product = new Product();
             $product->setName($faker->words(3, true));
             $product->setDescription($faker->sentence());
