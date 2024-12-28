@@ -26,16 +26,15 @@ class ProductController extends AbstractController
         $offset = ($page - 1) * $limit;
         if ($searchTerm) {
             $repository->aSearchByName($searchTerm);
-            $repository->aSearchByName($searchTerm);
-            $repository->aFindAll($limit, $offset);
-        } else {
-            $repository->aFindAll($limit, $offset);
         }
+        $totalProducts = count($repository->aSyncFetch());
+        $repository->aFindAll($limit, $offset);
         $products = $repository->aSyncFetch();
 
         return $this->render('product/list.html.twig', [
             'products' => $products,
-            'page' => $page
+            'page' => $page,
+            'totalPages' => ceil($totalProducts / $limit)
         ]);
     }
 }
