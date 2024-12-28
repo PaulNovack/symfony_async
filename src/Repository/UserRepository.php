@@ -13,11 +13,9 @@ class UserRepository extends CustomRepository
             ->setParameter('searchTerm', '%' . $searchTerm . '%');
         $this->execAsynch($queryBuilder);
     }
-    public function aFindAll(int $limit = 25, int $offset = 0)
+    public function aFindAll()
     {
-        $queryBuilder = $this->createQueryBuilder('u')
-            ->setMaxResults($limit)
-            ->setFirstResult($offset);
+        $queryBuilder = $this->createQueryBuilder('u');
         $this->execAsynch($queryBuilder);
     }
 }
