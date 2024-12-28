@@ -21,18 +21,15 @@ class UserController extends AbstractController
         $repository = $doctrine->getRepository(User::class);
 
         $searchTerm = $request->query->get('search', '');
-        $sql = null;
         if ($searchTerm) {
-            $users = $repository->searchByName($searchTerm);
-            $sql = $repository->getASql();
-
+            $repository->aSearchByName($searchTerm);
+            $users = $repository->aSyncFetch();
         } else {
-            $users = $repository->findAll();
+            $repository->aFindAll();
+            $users = $repository->aSyncFetch();
         }
-
         return $this->render('user/list.html.twig', [
-            'users' => $users,
-            'sql' => $sql,
+            'users' => $users
         ]);
     }
 }

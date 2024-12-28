@@ -27,13 +27,7 @@ class CustomRepository extends EntityRepository
         $this->socket->setSockOpt(ZMQ::SOCKOPT_IDENTITY, $this->clientId);
         $this->socket->connect("tcp://127.0.0.1:5555");
     }
-
-    public function getASql(): ?string
-    {
-        return $this->aSql;
-    }
-
-    public function storeSqlForQuery($queryBuilder)
+    public function execAsynch($queryBuilder)
     {
         $query = $queryBuilder->getQuery();
         $this->aSql = $query->getSQL();
@@ -43,6 +37,7 @@ class CustomRepository extends EntityRepository
         foreach ($params as $param) {
             $this->aSql = str_replace('?', "'" . $param->getValue() . "'", $this->aSql);
         }
+        $this->aSyncGet();
     }
 
     public function aSyncGet()
@@ -68,7 +63,8 @@ class CustomRepository extends EntityRepository
 
                 foreach ($reflectionClass->getProperties() as $property) {
                     $propertyName = $property->getName();
-                    $baseDataKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $propertyName));
+                    $baseDataKey = strtolower(preg_replace('/(?<!^)[A-Z]/',
+                        '_$0', $propertyName));
                     foreach ($data as $key => $value) {
                         if (strpos($key, $baseDataKey) === 0) {
                             $property->setAccessible(true);
@@ -81,17 +77,9 @@ class CustomRepository extends EntityRepository
                         }
                     }
                 }
-
                 $entities[] = $entity;
             }
         }
-
         return $entities;
-    }
-
-    public function findAsync()
-    {
-        // Custom logic for asynchronous fetching
-        return $this->findAll();
     }
 }
