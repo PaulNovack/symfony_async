@@ -43,24 +43,28 @@ class User
         return $this->id;
     }
 
-    public function getFirstName(): ?string
+    public function setFirstName(string $firstName): self
     {
-        return $this->firstName;
+        $this->firstName = $firstName;
+        return $this;
     }
 
-    public function getLastName(): ?string
+    public function setLastName(string $lastName): self
     {
-        return $this->lastName;
+        $this->lastName = $lastName;
+        return $this;
     }
 
-    public function getEmail(): ?string
+    public function setEmail(string $email): self
     {
-        return $this->email;
+        $this->email = $email;
+        return $this;
     }
 
-    public function getPassword(): ?string
+    public function setPassword(string $password): self
     {
-        return $this->password;
+        $this->password = $password;
+        return $this;
     }
 
     public function getRoles(): array
