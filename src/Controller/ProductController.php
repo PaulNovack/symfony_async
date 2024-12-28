@@ -29,8 +29,13 @@ class ProductController extends AbstractController
         } else {
             $repository->aFindAll(10000, 0);
         }
-        $products = $repository->aSyncFetch();
-        $totalProducts = count($products);
+        if ($searchTerm) {
+            $repository->aSearchByName($searchTerm);
+            $totalProducts = count($repository->aSyncFetch());
+        } else {
+            $repository->aFindAll(10000, 0);
+            $totalProducts = count($repository->aSyncFetch());
+        }
         $repository->aFindAll($limit, $offset);
         $products = $repository->aSyncFetch();
         return $this->render('product/list.html.twig', [
