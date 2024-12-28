@@ -18,27 +18,10 @@ class UserController extends AbstractController
      */
     public function listUsers(ManagerRegistry $doctrine): Response
     {
-        $users = $doctrine->getRepository(User::class)->findAll();
+        $users = /asl;
 
         return $this->render('user/list.html.twig', [
             'users' => $users,
         ]);
-    }
-    public function getAsynch(): string
-    {
-        return 'SELECT * FROM users';
-    }
-
-    public function findAllAsync(): array
-    {
-        $context = new ZMQContext();
-        $socket = $context->getSocket(ZMQ::SOCKET_REQ);
-        $socket->connect("tcp://localhost:5555");
-
-        $query = $this->getAsynch();
-        $socket->send($query);
-
-        $reply = $socket->recv();
-        return json_decode($reply, true);
     }
 }
