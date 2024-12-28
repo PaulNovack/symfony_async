@@ -3,7 +3,8 @@
 namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use ZMQContext;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use ZMQ;
 use ZMQSocket;
 
@@ -16,8 +17,9 @@ class CustomRepository extends EntityRepository
     private $context;
     private $socket;
 
-    public function __construct()
+    public function __construct(EntityManagerInterface $em, ClassMetadata $class)
     {
+        parent::__construct($em, $class);
         $this->context = new ZMQContext();
         $this->clientId = uniqid("client_");
         $this->socket = $this->context->getSocket(ZMQ::SOCKET_REQ);
