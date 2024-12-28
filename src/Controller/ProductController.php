@@ -22,7 +22,7 @@ class ProductController extends AbstractController
 
         $searchTerm = $request->query->get('search', '');
         $page = max(1, $request->query->getInt('page', 1));
-        $limit = 25;
+        $limit = 10;
         $offset = ($page - 1) * $limit;
         if ($searchTerm) {
             $repository->aSearchByName($searchTerm);
