@@ -45,7 +45,6 @@ class CustomRepository extends EntityRepository
         }
     }
 
-    }
     public function aSyncGet()
     {
         $this->queryId = uniqid("query_");
