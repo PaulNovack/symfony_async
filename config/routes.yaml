@@ -1,3 +1,7 @@
+home:
+    path: /
+    controller: App\Controller\HomeController::index
+
 list_users:
     path: /listusers
     controller: App\Controller\UserController::listUsers
