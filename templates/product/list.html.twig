@@ -11,28 +11,32 @@
         <button type="submit" class="ml-2 bg-blue-500 text-white rounded-lg px-4 py-2">Search</button>
     </form>
 
-    <table class="min-w-full bg-gray-100 shadow-md rounded-lg overflow-hidden">
-        <thead>
-            <tr>
-                <th class="py-2 pl-4 text-left">ID</th>
-                <th class="py-2 text-left">Name</th>
-                <th class="py-2 text-left">Description</th>
-                <th class="py-2 text-left">Price</th>
-                <th class="py-2 text-left">Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-                <tr class="border-t">
-                    <td class="py-2 pl-4">{{ product.id }}</td>
-                    <td class="py-2 pl-4">{{ product.name }}</td>
-                    <td class="py-2 pl-4">{{ product.description }}</td>
-                    <td class="py-2 pl-4">{{ product.price }}</td>
-                    <td class="py-2 pl-4">{{ product.quantity }}</td>
+    {% if products is not empty %}
+        <table class="min-w-full bg-gray-100 shadow-md rounded-lg overflow-hidden">
+            <thead>
+                <tr>
+                    <th class="py-2 pl-4 text-left">ID</th>
+                    <th class="py-2 text-left">Name</th>
+                    <th class="py-2 text-left">Description</th>
+                    <th class="py-2 text-left">Price</th>
+                    <th class="py-2 text-left">Quantity</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr class="border-t">
+                        <td class="py-2 pl-4">{{ product.id }}</td>
+                        <td class="py-2 pl-4">{{ product.name }}</td>
+                        <td class="py-2 pl-4">{{ product.description }}</td>
+                        <td class="py-2 pl-4">{{ product.price }}</td>
+                        <td class="py-2 pl-4">{{ product.quantity }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center">No products found.</p>
+    {% endif %}
     <div class="flex justify-between items-center mt-4">
         <span class="px-4 py-2 ml-4">Total Results: {{ totalProducts }}</span>
         <div class="flex justify-center flex-grow">
