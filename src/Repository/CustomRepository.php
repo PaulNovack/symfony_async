@@ -68,7 +68,7 @@ class CustomRepository extends EntityRepository
 
                 foreach ($reflectionClass->getProperties() as $property) {
                     $propertyName = $property->getName();
-                    $dataKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $propertyName)) . '_1'; // Adjust suffix to match data keys
+                    $dataKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $propertyName)); // Remove suffix to match data keys
                     if (isset($data[$dataKey])) {
                         $property->setAccessible(true);
                         $value = $data[$dataKey];
