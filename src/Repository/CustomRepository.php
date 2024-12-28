@@ -52,19 +52,15 @@ class CustomRepository extends EntityRepository
         $this->socket->sendmulti(['', $payload]);
     }
 
-    public function aSyncFetch()
+    public function aSyncFetch() : array
     {
         $response = $this->socket->recvMulti();
         $payload = msgpack_unpack($response[0]);
-        var_dump($payload);
-        die();
         if (isset($payload['id']) && $payload['id'] === $this->queryId) {
             $receivedData = $payload['data'];
-            echo "<br><br>";
-            print_r($receivedData);
             return $receivedData;
         }
-        return null;
+        return [];
     }
 
     public function findAsync()
