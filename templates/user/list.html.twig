@@ -16,7 +16,7 @@
                 <th class="py-2 pl-4">ID</th>
                 <th class="py-2">First Name</th>
                 <th class="py-2">Last Name</th>
-                <th class="py-2">Email</th>
+                <th class="py-2 pl-4">Email</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
                     <td class="py-2 pl-4">{{ user.id }}</td>
                     <td class="py-2 pl-4">{{ user.firstName }}</td>
                     <td class="py-2 pl-4">{{ user.lastName }}</td>
-                    <td class="py-2 pl-4">{{ user.email }}</td>
+                    <td class="py-2 pl-4 text-left">{{ user.email }}</td>
                 </tr>
             {% endfor %}
         </tbody>
