@@ -18,7 +18,7 @@ class CustomRepository extends EntityRepository
     {
         $this->lastExecutedSql = $queryBuilder->getQuery()->getSQL();
     }
-    public function findAsync($id)
+    public function findAsync()
     {
         // Custom logic for asynchronous fetching
         return $this->findAll();
