@@ -7,6 +7,17 @@ use Doctrine\ORM\EntityRepository;
 class CustomRepository extends EntityRepository
 {
     // Add your custom methods here
+    private $lastExecutedSql;
+
+    public function getLastExecutedSql(): ?string
+    {
+        return $this->lastExecutedSql;
+    }
+
+    public function storeSqlForQuery($queryBuilder)
+    {
+        $this->lastExecutedSql = $queryBuilder->getQuery()->getSQL();
+    }
     public function findAsync($id)
     {
         // Custom logic for asynchronous fetching
