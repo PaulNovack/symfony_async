@@ -26,11 +26,6 @@ class ProductController extends AbstractController
         $offset = ($page - 1) * $limit;
         if ($searchTerm) {
             $repository->aSearchByName($searchTerm);
-        } else {
-            $repository->aFindAll(10000, 0);
-        }
-        if ($searchTerm) {
-            $repository->aSearchByName($searchTerm);
             $totalProducts = count($repository->aSyncFetch());
         } else {
             $repository->aFindAll(10000, 0);
