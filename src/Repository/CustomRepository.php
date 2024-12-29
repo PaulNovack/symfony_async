@@ -12,6 +12,7 @@ use ZMQContext;
 class CustomRepository extends EntityRepository
 {
     private string $aSql;
+    private $query; // parameterized query with ?
     private string $clientId;
     private string $queryId;
     private ZMQContext $context;
@@ -31,10 +32,10 @@ class CustomRepository extends EntityRepository
 
     public function execAsynch($queryBuilder): void
     {
-        $query = $queryBuilder->getQuery();
-        $this->aSql = $query->getSQL();
+        $this->query = $queryBuilder->getQuery();
+        $this->aSql = $this->query->getSQL();
 
-        $params = $query->getParameters();
+        $params = $this->query->getParameters();
         $platform = $this->_em->getConnection()->getDatabasePlatform();
 
         // Replace placeholders with properly escaped parameter values
@@ -75,9 +76,10 @@ class CustomRepository extends EntityRepository
                 throw new QueryException(
                     "ZeroMQServiceMySQLConnectionException: "
                     . $payload['ERROR:SQLException']
-                    . ' :: SQL: ' . $this->aSql,
+                    . ' :: SQL: ' . $this->query->getSQL(),
                     1,
-                    new \Exception("Database error in SQL execution")
+                    new \Exception("Database error in SQL execution"
+                    . '  SQL: ' . $this->query->getSQL())
                 );
             }
             $receivedData = $payload['data'];
