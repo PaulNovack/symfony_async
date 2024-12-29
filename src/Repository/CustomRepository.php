@@ -62,7 +62,7 @@ class CustomRepository extends EntityRepository
                     . $payload['ERROR:SQLException']
                     . ' :: SQL: '. $this->aSql,
                     1,
-                    new \Exception($this->aSql) ,
+                    new \Exception($payload['ERROR:SQLException'] . ' in SQL: "' . $this->aSql . '"') ,
 
                 );
             }
