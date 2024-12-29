@@ -78,8 +78,8 @@ class CustomRepository extends EntityRepository
                     . $payload['ERROR:SQLException']
                     . ' :: SQL: ' . $this->query->getSQL(),
                     1,
-                    new \Exception("Database error in SQL execution"
-                    . '  SQL: ' . $this->query->getSQL())
+                    new \Exception("Database error in SQL execution: "
+                    . $payload['ERROR:SQLException'] . ' in SQL Statement: ' . $this->query->getSQL())
                 );
             }
             $receivedData = $payload['data'];
