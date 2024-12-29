@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use Doctrine\DBAL\Query\QueryException;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
+
+
 use ZMQ;
 use ZMQContext;
 
@@ -53,6 +56,16 @@ class CustomRepository extends EntityRepository
         $entities = [];
 
         if (isset($payload['id']) && $payload['id'] === $this->queryId) {
+            if(isset($payload['ERROR:SQLException'])){
+                throw new QueryException(
+                    "ZeroMQServiceMySQLConnectionException: "
+                    . $payload['ERROR:SQLException']
+                    . ' :: SQL: '. $this->aSql,
+                    1,
+                    new \Exception($this->aSql) ,
+
+                );
+            }
             $receivedData = $payload['data'];
             $entityName = $this->getClassName();
 
