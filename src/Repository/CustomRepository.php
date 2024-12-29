@@ -35,23 +35,11 @@ class CustomRepository extends EntityRepository
         $this->query = $queryBuilder->getQuery();
         $this->aSql = $this->query->getSQL();
 
+        // Replace placeholders with actual parameter values
         $params = $this->query->getParameters();
-        $platform = $this->_em->getConnection()->getDatabasePlatform();
-
-        // Replace placeholders with properly escaped parameter values
         foreach ($params as $param) {
-            $value = $param->getValue();
-            if (is_string($value)) {
-                $escapedValue = $platform->quoteStringLiteral($value);
-            } elseif (is_int($value) || is_float($value)) {
-                $escapedValue = $value;
-            } else {
-                // Handle other data types (e.g., boolean, null)
-                $escapedValue = $value === null ? 'NULL' : $platform->quoteStringLiteral((string) $value);
-            }
-            $this->aSql = preg_replace('/\\?/', $escapedValue, $this->aSql, 1);
+            $this->aSql = str_replace('?', "'" . $param->getValue() . "'", $this->aSql);
         }
-
         $this->aSyncGet();
     }
 
